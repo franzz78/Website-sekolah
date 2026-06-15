@@ -2,249 +2,179 @@
     --primary-color: #8B0000;
     --text-dark: #333333;
     --text-light: #ffffff;
-    --bg-light: #f4f6f9;
-    --card-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    --bg-light: #f8fafc;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-body { background-color: var(--bg-light); color: var(--text-dark); transition: background-color 0.3s, color 0.3s; }
+body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
 
-/* LOCK SCREEN LAYER */
-#lock-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.96); z-index:99999; display:flex; align-items:center; justify-content:center; color:white; padding: 20px; }
-.lock-box { text-align:center; padding:35px; background:#1e1e1e; border-radius:8px; border:2px solid var(--primary-color); box-shadow: 0 0 20px rgba(0,0,0,0.5); max-width: 400px; width: 100%; }
 .hidden { display: none !important; }
 .hidden-element { display: none !important; }
 
-/* ================= NAVIGASI NAVBAR & BRANDING KIRI ATAS ================= */
+/* ================= NAVBAR & HAMBURGER MENU RESPONSIVE ================= */
 .navbar { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    background-color: var(--primary-color); 
-    padding: 12px 5%; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; 
-    box-shadow: 0 3px 15px rgba(0,0,0,0.15); 
+    display: flex; justify-content: space-between; align-items: center; 
+    background-color: var(--primary-color); padding: 12px 5%; 
+    position: sticky; top: 0; z-index: 1000; box-shadow: 0 3px 15px rgba(0,0,0,0.15); 
 }
 
-.brand-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* Ruang Kosong untuk Penempatan Gambar Logo Sekolah */
+.brand-container { display: flex; align-items: center; gap: 12px; }
 .logo-space {
-    width: 48px;
-    height: 48px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: 2px dashed rgba(255, 255, 255, 0.5);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
-    font-size: 20px;
-    flex-shrink: 0;
+    width: 44px; height: 44px; background-color: rgba(255, 255, 255, 0.15);
+    border: 2px dashed rgba(255, 255, 255, 0.5); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; flex-shrink: 0;
 }
 
-.school-titles {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+.school-titles { display: flex; flex-direction: column; }
+.title-main { color: #fff; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
+.title-sub { color: rgba(255, 255, 255, 0.9); font-size: 11px; font-weight: 600; margin-top: 1px; }
+.title-managed { color: rgba(255, 255, 255, 0.65); font-size: 9px; font-style: italic; margin-top: 1px; }
 
-.title-main {
-    color: var(--text-light);
-    font-size: 16px;
-    font-weight: 800; /* Tulisan Tebal Sesuai Permintaan */
-    letter-spacing: 0.5px;
-    line-height: 1.2;
-}
-
-.title-sub {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.title-managed {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 10px;
-    font-weight: 400;
-    font-style: italic;
-    margin-top: 1px;
-}
-
-.nav-links { display: flex; gap: 15px; align-items:center; }
+.nav-links { display: flex; gap: 20px; align-items: center; }
 .nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
-.nav-links a:hover, .nav-links a.active { color: var(--text-light); }
-.btn-admin-nav { background: #550000; color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+.nav-links a:hover, .nav-links a.active { color: #fff; }
+.btn-admin-nav { background: #550000; color: white; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 5px; }
 
-/* ================= HERO & STATISTIK MELAYANG ================= */
-.hero-section { background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1470') no-repeat center center/cover; min-height: 340px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); margin-bottom: 80px; padding: 20px; }
-.hero-overlay { background: rgba(0, 0, 0, 0.65); position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; z-index: 1; }
-.hero-overlay h1 { font-size: clamp(24px, 4vw, 36px); margin-bottom: 10px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-.hero-overlay p { font-size: clamp(13px, 2vw, 16px); max-width: 700px; }
-.hero-tag { margin-top: 15px; font-size: 24px; font-weight: 800; opacity: 0.12; letter-spacing: 2px; }
-
-.stats-container { position: absolute; bottom: -50px; display: flex; gap: 15px; width: 90%; max-width: 1000px; z-index: 2; }
-.stat-card { background-color: white; color: #333; flex: 1; padding: 15px; border-radius: 8px; text-align: center; box-shadow: var(--card-shadow); border-bottom: 4px solid var(--primary-color); display: flex; flex-direction: column; justify-content: center; align-items: center; }
-.icon-red { color: var(--primary-color); font-size: 22px; margin-bottom: 5px; }
-.stat-card h3 { font-size: 22px; margin-bottom: 2px; font-weight: 700; }
-.stat-card p { font-size: 12px; color: #666; }
-
-/* ================= GRID KONTEN PUBLIK ================= */
-.main-content { display: flex; max-width: 1200px; margin: 0 auto; padding: 20px; gap: 25px; width: 100%; }
-.left-content { flex: 3; min-width: 0; }
-.sidebar { flex: 1; min-width: 250px; }
-.content-section { background-color: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; box-shadow: var(--card-shadow); }
-.section-title { font-size: 18px; border-left: 5px solid var(--primary-color); padding-left: 10px; margin-bottom: 20px; color: var(--primary-color); font-weight: 700; }
-
-.grid-layout { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.grid-layout-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
-.grid-layout-card { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-
-.announcement-item { border: 1px solid #f0f0f0; padding: 15px; border-radius: 6px; background-color: #fafafa; }
-.gallery-card { border: 1px solid #eaeaea; border-radius: 6px; overflow: hidden; background: #fff; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-.gallery-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
-.profile-card { background: #ffffff; border: 1px solid #eef2f5; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-.tag-role { display: inline-block; background: #fee2e2; color: var(--primary-color); padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; margin: 5px 0; }
-.sidebar-box { background-color: white; padding: 20px; border-radius: 8px; box-shadow: var(--card-shadow); }
-.sidebar-title { color: var(--primary-color); margin-bottom: 8px; font-size: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-
-#table-siswa-nilai { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-#table-siswa-nilai th, #table-siswa-nilai td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-#table-siswa-nilai th { background: var(--primary-color); color: white; font-weight: 600; }
-
-/* ================= PERBAIKAN TOTAL BOX POPUP LOGIN ADMIN (PREMIUM) ================= */
-#admin-login-overlay { 
-    position: fixed; top:0; left:0; width:100%; height:100%; 
-    background: rgba(15, 23, 42, 0.75); 
-    backdrop-filter: blur(5px);
-    z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; 
+/* Tombol Garis Tiga Tersembunyi Secara Default di Desktop */
+.hamburger-toggle {
+    display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer;
 }
 
-.login-modal-box { 
-    background: #ffffff; padding: 0; border-radius: 16px; width: 100%; max-width: 400px; 
-    position: relative; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); overflow: hidden;
-    animation: modalPopUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* ================= REVISI LAYOUT BANNER WELCOME ================= */
+.hero-section { 
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1470') no-repeat center center/cover; 
+    height: 75vh; min-height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; 
 }
 
-@keyframes modalPopUp {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
+.welcome-text-box { padding: 20px; color: white; }
+.welcome-text-box h2 { font-size: clamp(16px, 3vw, 22px); font-weight: 400; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; color: #f1f5f9; }
+.welcome-text-box h1 { font-size: clamp(26px, 5vw, 46px); font-weight: 800; text-shadow: 2px 4px 10px rgba(0,0,0,0.4); line-height: 1.2; }
+.welcome-text-box h3 { font-size: clamp(15px, 2.5vw, 20px); font-weight: 600; margin-top: 8px; letter-spacing: 1px; color: #e2e8f0; }
 
-.close-x-btn { 
-    position: absolute; top: 12px; right: 15px; background: rgba(0, 0, 0, 0.2); border: none; 
-    font-size: 22px; cursor: pointer; color: #fff; width: 28px; height: 28px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; z-index: 10;
-}
-.close-x-btn:hover { background: rgba(0,0,0,0.4); transform: rotate(90deg); }
+/* ================= STRUKTUR KONTEN HALAMAN UTAMA ================= */
+.main-content-simple { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+.main-page-section { background: white; padding: 35px 25px; border-radius: 12px; margin-bottom: 40px; box-shadow: var(--card-shadow); }
+.center-section-title { font-size: 20px; font-weight: 700; color: var(--primary-color); text-align: center; margin-bottom: 30px; position: relative; padding-bottom: 10px; }
+.center-section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--primary-color); border-radius: 2px; }
 
-.login-header-accent {
-    background: linear-gradient(135deg, #8B0000 0%, #550000 100%);
-    padding: 35px 25px 25px 25px; text-align: center; color: #ffffff;
-}
+/* KARTU GRID */
+.grid-layout-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.grid-layout-card { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
-.login-icon-circle {
-    width: 60px; height: 60px; background: rgba(255, 255, 255, 0.15); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;
-    font-size: 26px; border: 1px solid rgba(255,255,255,0.25);
-}
+.gallery-card { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
+.gallery-card img { width: 100%; height: 160px; object-fit: cover; display: block; transition: 0.3s; }
+.gallery-card img:hover { transform: scale(1.05); }
 
-.login-header-accent h3 { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
-.login-header-accent p { font-size: 12px; color: rgba(255, 255, 255, 0.75); margin-top: 6px; line-height: 1.4; }
-.login-body-form { padding: 30px 25px; background: #ffffff; }
-.input-group-wrapper { position: relative; margin-bottom: 20px; }
+.profile-card { background: #fff; border: 1px solid #f1f5f9; padding: 20px 15px; border-radius: 8px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.02); }
+.profile-card img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid #f1f5f9; }
+.profile-card h4 { font-size: 14px; font-weight: 700; color:#1e293b; }
+.tag-role { display: inline-block; background: #fee2e2; color: var(--primary-color); padding: 2px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; margin: 4px 0; }
 
-.input-field-icon {
-    position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; font-size: 14px;
-}
+/* ================= INTERFACES REKAP & TABLE BARU ================= */
+.filter-action-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 8px; }
+.filter-box-inline label { font-weight: 700; font-size: 14px; color:#475569; }
+.filter-box-inline select { padding: 8px 14px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; font-weight: 600; }
 
-.login-body-form input[type="password"] { 
-    width: 100%; padding: 12px 12px 12px 38px; border: 1px solid #e2e8f0; 
-    border-radius: 8px; font-size: 14px; transition: all 0.3s; background-color: #f8fafc; color: #333;
-}
+.rekap-buttons-group { display: flex; gap: 10px; }
+.btn-download { border: none; padding: 8px 16px; border-radius: 6px; color: white; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+.excel-btn { background-color: #16a34a; box-shadow: 0 3px 10px rgba(22,163,74,0.25); }
+.excel-btn:hover { background-color: #15803d; }
+.pdf-btn { background-color: #dc2626; box-shadow: 0 3px 10px rgba(220,38,38,0.25); }
+.pdf-btn:hover { background-color: #b91c1c; }
 
-.login-body-form input[type="password"]:focus {
-    border-color: var(--primary-color); background-color: #fff;
-    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.15); outline: none;
-}
+.table-premium-style { width: 100%; border-collapse: collapse; font-size: 14px; background: white; min-width: 500px; }
+.table-premium-style th { background: var(--primary-color); color: white; font-weight: 600; padding: 12px; text-align: left; }
+.table-premium-style td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #334155; }
+.table-premium-style tbody tr:nth-child(even) { background-color: #f8fafc; }
 
-.btn-submit-premium { 
-    background: var(--primary-color); color: white; border: none; padding: 12px; width: 100%; 
-    border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2); transition: all 0.2s;
-}
-.btn-submit-premium:hover { background: #700000; transform: translateY(-1px); box-shadow: 0 6px 15px rgba(139, 0, 0, 0.3); }
+/* ================= STATISTIK BARU (GESER POSISI KE BAWAH) ================= */
+.stats-footer-section { margin-top: 20px; padding: 10px 0; }
+.stats-footer-container { display: flex; gap: 20px; width: 100%; justify-content: center; }
+.stat-footer-card { background: white; flex: 1; max-width: 300px; padding: 20px; border-radius: 10px; text-align: center; box-shadow: var(--card-shadow); border-top: 4px solid var(--primary-color); }
+.icon-footer-red { color: var(--primary-color); font-size: 24px; margin-bottom: 6px; }
+.stat-footer-card h3 { font-size: 26px; font-weight: 800; color: #0f172a; }
+.stat-footer-card p { font-size: 13px; color: #64748b; font-weight: 500; }
 
-.error-alert-box {
-    margin-top: 15px; background-color: #fef2f2; border: 1px solid #fee2e2;
-    color: #dc2626; padding: 10px 12px; border-radius: 6px; font-size: 12px;
-    text-align: left; display: flex; align-items: center; gap: 8px;
-}
+/* FOOTER */
+.footer-simple-managed { background: white; text-align: center; padding: 25px; border-top: 1px solid #e2e8f0; margin-top: 40px; }
+.footer-simple-managed p strong { color: var(--primary-color); }
 
-/* ================= PANEL OPERASIONAL DASHBOARD ADMIN ================= */
+/* ================= PERBAIKAN POPUP LOGIN ADMIN ================= */
+#admin-login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-modal-box { background: #ffffff; border-radius: 16px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); overflow: hidden; animation: modalPopUp 0.3s ease-out; }
+@keyframes modalPopUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.close-x-btn { position: absolute; top: 12px; right: 15px; background: rgba(0, 0, 0, 0.2); border: none; font-size: 22px; cursor: pointer; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.login-header-accent { background: linear-gradient(135deg, #8B0000 0%, #550000 100%); padding: 30px 20px; text-align: center; color: #ffffff; }
+.login-icon-circle { width: 55px; height: 55px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; font-size: 24px; }
+.login-body-form { padding: 25px; }
+.input-group-wrapper { position: relative; margin-bottom: 15px; }
+.input-field-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+.login-body-form input[type="password"] { width: 100%; padding: 11px 11px 11px 36px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background-color: #f8fafc; }
+.btn-submit-premium { background: var(--primary-color); color: white; border: none; padding: 11px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2); }
+.error-alert-box { margin-top: 12px; background-color: #fef2f2; border: 1px solid #fee2e2; color: #dc2626; padding: 8px 12px; border-radius: 6px; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+
+/* ================= PANEL UTAMA ADMINISTRATOR ================= */
 #admin-panel-dashboard { position: fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-light); z-index:999999; overflow-y:auto; padding-bottom: 40px; }
-.admin-header { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; color: white; padding: 15px 4%; border-bottom: 4px solid var(--primary-color); gap: 15px; }
-.admin-header h2 { font-size: clamp(14px, 2.5vw, 18px); }
-.admin-controls-top { display: flex; gap: 10px; flex-wrap: wrap; }
-
+.admin-header { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; color: white; padding: 15px 4%; border-bottom: 4px solid var(--primary-color); }
 .admin-grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
-.admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: var(--card-shadow); border-top: 3px solid var(--primary-color); display: flex; flex-direction: column; }
-.admin-card h3 { font-size: 14px; color:#222; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-.admin-card label { display: block; font-size: 11px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; color:#555; }
-.admin-card input, .admin-card textarea, .admin-card select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 8px; font-size: 13px; background-color: #fff; }
+.admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 3px solid var(--primary-color); display: flex; flex-direction: column; }
+.admin-card h3 { font-size: 14px; color:#0f172a; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+.admin-card label { display: block; font-size: 11px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; color:#475569; }
+.admin-card input, .admin-card textarea, .admin-card select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; margin-bottom: 8px; font-size: 13px; }
 
-.btn-save { background: var(--primary-color); color: white; border: none; padding: 9px 15px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
-.btn-save:hover { background: #660000; }
-.btn-danger { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-.btn-secondary { background: #6c757d; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.btn-save { background: var(--primary-color); color: white; border: none; padding: 9px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+.btn-danger { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+.btn-secondary { background: #475569; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
 
-.list-admin-items { max-height: 160px; overflow-y: auto; margin-top: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; background: #fafafa; }
-.admin-item-row { display: flex; justify-content: space-between; background: #ffffff; padding: 6px 10px; margin-bottom: 5px; font-size: 12px; border-radius: 4px; align-items: center; color:#333; border: 1px solid #f0f0f0; }
+/* PANEL STRUKTUR RESET KHUSUS ADMIN */
+.reset-buttons-vertical { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.btn-reset-action { border: none; padding: 10px; border-radius: 6px; color: white; font-weight: 700; font-size: 12px; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+.action-harian { background-color: #f59e0b; }
+.action-harian:hover { background-color: #d97706; }
+.action-mingguan { background-color: #3b82f6; }
+.action-mingguan:hover { background-color: #2563eb; }
+.action-bulanan { background-color: #6366f1; }
+.action-bulanan:hover { background-color: #4f46e5; }
 
-/* PANEL MODE GELAP / DARK-MODE CONFIG */
+.list-admin-items { max-height: 160px; overflow-y: auto; margin-top: 10px; border: 1px solid #e2e8f0; padding: 5px; border-radius: 4px; background: #f8fafc; }
+.admin-item-row { display: flex; justify-content: space-between; background: #fff; padding: 6px 10px; margin-bottom: 5px; font-size: 12px; border-radius: 4px; align-items: center; border: 1px solid #e2e8f0; }
+
+/* DARK MODE ADMIN CONTROL */
 #admin-panel-dashboard.dark-mode-active { background-color: #121212 !important; color: #fff !important; }
-#admin-panel-dashboard.dark-mode-active .admin-card { background: #1e1e1e !important; color: #fff !important; border-top: 3px solid #ff3333; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+#admin-panel-dashboard.dark-mode-active .admin-card { background: #1e1e1e !important; color: #fff !important; border-top: 3px solid #ef4444; }
 #admin-panel-dashboard.dark-mode-active .admin-card h3, #admin-panel-dashboard.dark-mode-active .admin-card label { color: #fff !important; }
 #admin-panel-dashboard.dark-mode-active .admin-card input, #admin-panel-dashboard.dark-mode-active .admin-card textarea, #admin-panel-dashboard.dark-mode-active .admin-card select { background: #2b2b2b; color: white; border: 1px solid #444; }
 #admin-panel-dashboard.dark-mode-active .admin-item-row { background: #252525; color:#fff; border-color: #333; }
-#admin-panel-dashboard.dark-mode-active .list-admin-items { background: #1a1a1a; border-color: #333; }
-#admin-panel-dashboard.dark-mode-active #admin-border-theme { border-left: 1px solid #444 !important; }
 
 /* ================= BREAKPOINTS RESPONSIVE (POTRET & LANDSCAPE) ================= */
 
-/* ORIENTASI SMARTPHONE POTRET (Layar Tegak) */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 15px; padding: 15px; text-align: center; }
-    .brand-container { width: 100%; justify-content: center; }
-    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
-    .btn-admin-nav { width: 100%; justify-content: center; margin-top: 5px; }
-
-    .hero-section { min-height: 260px; margin-bottom: 140px; }
-    .stats-container { flex-direction: column; gap: 10px; bottom: -120px; width: 92%; }
-
-    .main-content { flex-direction: column; padding: 10px; gap: 15px; }
-    .left-content, .sidebar { width: 100%; flex: none; }
+    .hamburger-toggle { display: block; } /* Memunculkan garis tiga di HP */
     
-    .admin-header { flex-direction: column; text-align: center; padding: 15px; }
-    .admin-controls-top { width: 100%; justify-content: center; }
+    /* Sembunyikan menu link bawaan sebelum tombol di-klik */
+    .nav-links { 
+        display: none; flex-direction: column; width: 100%; position: absolute; 
+        top: 68px; left: 0; background-color: var(--primary-color); padding: 20px; 
+        gap: 15px; box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
+    }
     
+    /* Class tambahan untuk memicu buka menu via Javascript bawaan */
+    .nav-links.open-active { display: flex !important; }
+    .btn-admin-nav { width: 100%; justify-content: center; }
+
+    .hero-section { height: 50vh; }
+    .stats-footer-container { flex-direction: column; align-items: center; gap: 12px; }
+    .stat-footer-card { width: 100%; max-width: none; }
+    
+    .filter-action-bar { flex-direction: column; align-items: stretch; text-align: center; }
+    .rekap-buttons-group { justify-content: center; }
+    
+    .admin-header { flex-direction: column; gap: 10px; text-align: center; }
     .admin-card { grid-column: span 1 !important; }
-    #admin-panel-dashboard .admin-card div[style*="display:flex"] { flex-direction: column; gap: 15px; }
-    #admin-panel-dashboard #admin-border-theme { border-left: none !important; border-top: 1px solid #ddd; padding-left: 0; padding-top: 15px; }
 }
 
-/* ORIENTASI SMARTPHONE LANDSCAPE (HP Dimiringkan) */
 @media (max-height: 500px) and (orientation: landscape) {
-    .hero-section { min-height: 180px; margin-bottom: 70px; }
-    .hero-tag { display: none; }
-    .stats-container { position: static; margin: 15px auto 0; flex-direction: row; width: 100%; }
-    .admin-grid-layout { padding: 10px; gap: 15px; }
-               }
+    .hero-section { height: 80vh; }
+    .stats-footer-container { flex-direction: row; }
+}
