@@ -95,16 +95,19 @@
                         <option value="Kelas 6">Kelas 6</option>
                     </select>
                 </div>
-                <table border="1" width="100%" cellpadding="10" style="border-collapse:collapse; text-align:left;" id="table-siswa-nilai">
-                    <thead>
-                        <tr style="background:#8B0000; color:white;">
-                            <th>Nama Siswa</th>
-                            <th>Mata Pelajaran</th>
-                            <th>Nilai Akhir</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-view-siswa"></tbody>
-                </table>
+                
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                    <table border="1" width="100%" cellpadding="10" style="border-collapse:collapse; text-align:left; min-width: 450px;" id="table-siswa-nilai">
+                        <thead>
+                            <tr style="background:#8B0000; color:white;">
+                                <th>Nama Siswa</th>
+                                <th>Mata Pelajaran</th>
+                                <th>Nilai Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-view-siswa"></tbody>
+                    </table>
+                </div>
             </section>
 
             <section id="galeri" class="content-section">
@@ -141,7 +144,7 @@
             <button id="btn-close-login" class="close-x">&times;</button>
             <i class="fa fa-user-lock" style="font-size: 40px; color:#8B0000; margin-bottom: 12px;"></i>
             <h3>Login Administrator</h3>
-            <p style="font-size: 13px; color:#666; margin-bottom: 15px;">Masukkan password untuk mengelola database website</p>
+            <p style="font-size: 13px; color:#666; margin-bottom: 15px;">Masukkan password utama untuk mengelola sistem website</p>
             <input type="password" id="admin-password-input" placeholder="Ketik Password Admin...">
             <button id="btn-submit-login">Masuk ke Panel</button>
             <p id="login-error" style="color:red; font-size:12px; margin-top:10px; display:none;">Password Salah! Akses ditolak.</p>
@@ -153,8 +156,8 @@
         <header class="admin-header">
             <h2><i class="fa fa-sliders"></i> Panel Kontrol Administrator - SDN 1 Susukan Agung</h2>
             <div class="admin-controls-top">
-                <button id="btn-toggle-theme" class="btn-secondary"><i class="fa fa-adjust"></i> Ganti Warna Background (Hitam/Putih)</button>
-                <button id="btn-logout-admin" class="btn-danger"><i class="fa fa-sign-out-alt"></i> Keluar</button>
+                <button id="btn-toggle-theme" class="btn-secondary"><i class="fa fa-adjust"></i> Settings Latar (Hitam / Putih)</button>
+                <button id="btn-logout-admin" class="btn-danger"><i class="fa fa-sign-out-alt"></i> Keluar Panel</button>
             </div>
         </header>
 
@@ -162,117 +165,128 @@
             
             <div class="admin-card">
                 <h3><i class="fa fa-power-off"></i> Menu Tutup Akses & Buka Akses</h3>
-                <hr><br>
-                <label>Status Akses Pengunjung: </label>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Atur Status Akses Web Halaman Depan: </label>
                 <select id="select-status-akses">
                     <option value="buka">Buka Akses Website (Normal)</option>
                     <option value="tutup">Tutup Akses Website (Kunci Layar)</option>
                 </select>
-                <button id="save-status-akses" class="btn-save">Simpan Pengaturan Akses</button>
+                <button id="save-status-akses" class="btn-save">Simpan Status Akses</button>
             </div>
 
             <div class="admin-card">
                 <h3><i class="fa fa-edit"></i> Menu Tentang & Sejarah Sekolah</h3>
-                <hr><br>
-                <label>Tentang Sekolah SDN 1 SUSUKAN AGUNG:</label>
-                <textarea id="input-admin-tentang" rows="3"></textarea>
-                <label>Sejarah Sekolah SDN 1 SUSUKAN AGUNG:</label>
-                <textarea id="input-admin-sejarah" rows="3"></textarea>
-                <button id="save-profil-teks" class="btn-save">Simpan Teks</button>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Tentang Sekolah SDN 1 SUSUKAN AGUNG - KABUPATEN CIREBON:</label>
+                <textarea id="input-admin-tentang" rows="4" placeholder="Tulis profil mengenai sekolah..."></textarea>
+                <label>Sejarah Sekolah SDN 1 SUSUKAN AGUNG - KABUPATEN CIREBON:</label>
+                <textarea id="input-admin-sejarah" rows="4" placeholder="Tulis rentetan sejarah berdirinya sekolah..."></textarea>
+                <button id="save-profil-teks" class="btn-save">Simpan Perubahan Teks</button>
             </div>
 
             <div class="admin-card">
-                <h3><i class="fa fa-users"></i> Menu Nama Operator & Penjaga Sekolah</h3>
-                <hr><br>
+                <h3><i class="fa fa-users"></i> Menu Operator & Penjaga Sekolah</h3>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
                 <label>Nama Operator Sekolah:</label>
-                <input type="text" id="input-admin-operator">
+                <input type="text" id="input-admin-operator" placeholder="Nama lengkap operator...">
                 <label>Nama Penjaga Sekolah:</label>
-                <input type="text" id="input-admin-penjaga">
+                <input type="text" id="input-admin-penjaga" placeholder="Nama lengkap penjaga...">
                 <button id="save-staff-lain" class="btn-save">Update Nama Staff</button>
             </div>
 
             <div class="admin-card">
                 <h3><i class="fa fa-book"></i> Menu Mata Pelajaran Sekolah</h3>
-                <hr><br>
-                <input type="text" id="input-admin-mapel" placeholder="Nama Mata Pelajaran Baru...">
-                <button id="add-admin-mapel" class="btn-save">+ Tambah Mapel</button>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Tambah Mata Pelajaran Baru:</label>
+                <input type="text" id="input-admin-mapel" placeholder="Ketik nama mapel...">
+                <button id="add-admin-mapel" class="btn-save">+ Tambahkan Mapel</button>
                 <div id="admin-list-mapel" class="list-admin-items"></div>
             </div>
 
             <div class="admin-card">
-                <h3><i class="fa fa-trophy"></i> Menu Kelola Siswa Berprestasi</h3>
-                <hr><br>
-                <input type="text" id="input-prestasi-nama" placeholder="Contoh: Juara 1 Lomba Mewarnai">
-                <input type="text" id="input-prestasi-pemenang" placeholder="Nama Siswa">
-                <button id="add-prestasi" class="btn-save">Simpan Prestasi</button>
+                <h3><i class="fa fa-trophy"></i> Menu Kelola Prestasi Siswa</h3>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Nama Lomba / Pencapaian:</label>
+                <input type="text" id="input-prestasi-nama" placeholder="Contoh: Juara 1 Lomba Pidato Tingkat Kecamatan">
+                <label>Nama Murid Yang Menang:</label>
+                <input type="text" id="input-prestasi-pemenang" placeholder="Ketik nama siswa...">
+                <button id="add-prestasi" class="btn-save">Simpan Data Prestasi</button>
                 <div id="admin-list-prestasi" class="list-admin-items"></div>
             </div>
 
             <div class="admin-card">
                 <h3><i class="fa fa-user-tie"></i> Menu Foto & Data Guru / Kepala Sekolah</h3>
-                <hr><br>
-                <label>Nama Lengkap & Gelar:</label>
-                <input type="text" id="input-guru-nama">
-                <label>Jabatan Struktur:</label>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Nama Lengkap Guru beserta Gelar:</label>
+                <input type="text" id="input-guru-nama" placeholder="Contoh: Budi Santoso, S.Pd.">
+                <label>Peran / Jabatan Struktur:</label>
                 <select id="select-guru-peran">
                     <option value="Guru">Guru</option>
                     <option value="Kepala Sekolah">Kepala Sekolah</option>
                 </select>
-                <label>Mengajar Mata Pelajaran (Mapel):</label>
-                <input type="text" id="input-guru-mapel" placeholder="Misal: Matematika / Wali Kelas 1">
-                <label>Masukkan Link Foto Guru/Kepsek:</label>
-                <input type="text" id="input-guru-foto" placeholder="Sematkan URL Gambar">
-                <button id="add-guru" class="btn-save">Simpan & Sync Guru</button>
+                <label>Mata Pelajaran (Mapel) yang Diajar / Keterangan Kelas:</label>
+                <input type="text" id="input-guru-mapel" placeholder="Contoh: Matematika / Wali Kelas 3">
+                <label>Masukkan Link URL Foto Guru / Kepala Sekolah:</label>
+                <input type="text" id="input-guru-foto" placeholder="Tempel/Paste Link URL Gambar">
+                <button id="add-guru" class="btn-save">Simpan Data Pendidik</button>
                 <div id="admin-list-guru" class="list-admin-items"></div>
             </div>
 
             <div class="admin-card">
                 <h3><i class="fa fa-images"></i> Menu Foto Kegiatan & Tampilan Gallery</h3>
-                <hr><br>
-                <label>Simpan Ke Bagian Mana:</label>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Tentukan Tujuan Penempatan Menu Foto:</label>
                 <select id="select-galeri-menu">
                     <option value="Tampilan Gallery Utama">Menu Tampilan Gallery Utama</option>
                     <option value="Foto Kegiatan Sekolah">Menu Foto Kegiatan Sekolah</option>
                 </select>
-                <label>Keterangan / Judul Foto:</label>
-                <input type="text" id="input-galeri-judul" placeholder="Tulis deskripsi foto...">
-                <label>Link Gambar Foto:</label>
-                <input type="text" id="input-galeri-foto" placeholder="Sematkan URL Gambar">
-                <button id="add-galeri" class="btn-save">Masukkan Foto ke Database</button>
+                <label>Keterangan / Judul Foto Kegiatan:</label>
+                <input type="text" id="input-galeri-judul" placeholder="Contoh: Kegiatan Pramuka Sabtu Sore">
+                <label>Masukkan Link URL Gambar/Foto:</label>
+                <input type="text" id="input-galeri-foto" placeholder="Tempel/Paste Link URL Gambar">
+                <button id="add-galeri" class="btn-save">Masukkan Foto ke Menu Pilihan</button>
                 <div id="admin-list-galeri" class="list-admin-items"></div>
             </div>
 
             <div class="admin-card">
-                <h3><i class="fa fa-user-lock"></i> Menu Kelola Akses Guru (Username)</h3>
-                <hr><br>
-                <input type="text" id="input-akses-username" placeholder="Tulis nama username baru...">
-                <button id="add-akses-guru" class="btn-save">Daftarkan Akses Guru</button>
+                <h3><i class="fa fa-key"></i> Menu Kelola Akses Guru (Username)</h3>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
+                <label>Buat Username Baru untuk Akses Guru:</label>
+                <input type="text" id="input-akses-username" placeholder="Ketik nama username yang ingin dipakai...">
+                <button id="add-akses-guru" class="btn-save">Daftarkan Username Guru</button>
                 <div id="admin-list-akses-guru" class="list-admin-items"></div>
             </div>
 
             <div class="admin-card" style="grid-column: span 2;">
-                <h3><i class="fa fa-graduation-cap"></i> Menu Kelola Nilai Siswa Per Kelas (Kelas 1 s/d Kelas 6)</h3>
-                <hr><br>
+                <h3><i class="fa fa-graduation-cap"></i> Menu Kelola Kelas & Nilai Siswa (Kelas 1 - Kelas 6)</h3>
+                <hr style="border:0; border-top:1px solid #eee; margin: 8px 0;"><br>
                 <div style="display:flex; gap:20px; flex-wrap: wrap;">
+                    
                     <div style="flex:1; min-width:280px;">
-                        <label>Tingkatan Kelas Murid:</label>
+                        <label>Pilih Tingkatan Kelas Target:</label>
                         <select id="select-input-kelas">
-                            <option value="Kelas 1">Kelas 1</option><option value="Kelas 2">Kelas 2</option>
-                            <option value="Kelas 3">Kelas 3</option><option value="Kelas 4">Kelas 4</option>
-                            <option value="Kelas 5">Kelas 5</option><option value="Kelas 6">Kelas 6</option>
+                            <option value="Kelas 1">Kelas 1</option>
+                            <option value="Kelas 2">Kelas 2</option>
+                            <option value="Kelas 3">Kelas 3</option>
+                            <option value="Kelas 4">Kelas 4</option>
+                            <option value="Kelas 5">Kelas 5</option>
+                            <option value="Kelas 6">Kelas 6</option>
                         </select>
-                        <label>Nama Lengkap Siswa:</label>
-                        <input type="text" id="input-siswa-nama">
-                        <label>Mata Pelajaran Uji:</label>
-                        <input type="text" id="input-siswa-mapel" placeholder="Contoh: Matematika">
-                        <label>Nilai Angka:</label>
-                        <input type="number" id="input-siswa-nilai" placeholder="0-100">
-                        <button id="add-siswa-nilai" class="btn-save" style="width:100%; padding:10px;">Simpan Nilai & Nama</button>
+                        <label>Nama Lengkap Siswa Baru:</label>
+                        <input type="text" id="input-siswa-nama" placeholder="Ketik nama siswa...">
+                        <label>Mata Pelajaran Ujian:</label>
+                        <input type="text" id="input-siswa-mapel" placeholder="Contoh: Bahasa Indonesia">
+                        <label>Nilai Kompetensi Angka:</label>
+                        <input type="number" id="input-siswa-nilai" placeholder="Masukkan nilai 0-100">
+                        <button id="add-siswa-nilai" class="btn-save" style="width:100%; padding:10px; font-size:13px;">Simpan Nama & Nilai Siswa</button>
                     </div>
+                    
                     <div style="flex:1; min-width:280px; border-left:1px solid #ddd; padding-left:15px;" id="admin-border-theme">
-                        <h4>Daftar Tabel Nilai Yang Tersimpan</h4>
-                        <div id="admin-list-siswa" style="max-height:230px; overflow-y:auto; margin-top:10px;"></div>
+                        <h4 style="font-size:13px; margin-bottom:5px;"><i class="fa fa-folder-open"></i> Daftar Nilai yang Tersimpan di Kelas Terpilih</h4>
+                        <div id="admin-list-siswa" style="max-height:230px; overflow-y:auto; margin-top:10px;">
+                            </div>
                     </div>
+
                 </div>
             </div>
 
@@ -281,5 +295,5 @@
 
     <script type="module" src="script.js"></script>
 </body>
-    </html>
+</html>
     
