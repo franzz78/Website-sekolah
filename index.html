@@ -19,7 +19,17 @@
     </div>
 
     <header class="navbar">
-        <div class="logo">SDN 1 Susukan Agung</div>
+        <div class="brand-container">
+            <div class="logo-space">
+                <i class="fa-solid fa-school"></i>
+            </div>
+            <div class="school-titles">
+                <span class="title-main">SDN 1 SUSUKAN AGUNG</span>
+                <span class="title-sub">KABUPATEN CIREBON</span>
+                <span class="title-managed">Dikelola oleh: Operator sekolah</span>
+            </div>
+        </div>
+        
         <nav class="nav-links">
             <a href="#" class="active">Beranda</a>
             <a href="#tentang-sekolah">Tentang</a>
@@ -141,13 +151,29 @@
 
     <div id="admin-login-overlay" class="hidden-element">
         <div class="login-modal-box">
-            <button id="btn-close-login" class="close-x">&times;</button>
-            <i class="fa fa-user-lock" style="font-size: 40px; color:#8B0000; margin-bottom: 12px;"></i>
-            <h3>Login Administrator</h3>
-            <p style="font-size: 13px; color:#666; margin-bottom: 15px;">Masukkan password utama untuk mengelola sistem website</p>
-            <input type="password" id="admin-password-input" placeholder="Ketik Password Admin...">
-            <button id="btn-submit-login">Masuk ke Panel</button>
-            <p id="login-error" style="color:red; font-size:12px; margin-top:10px; display:none;">Password Salah! Akses ditolak.</p>
+            <button id="btn-close-login" class="close-x-btn">&times;</button>
+            
+            <div class="login-header-accent">
+                <div class="login-icon-circle">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Sistem Otentikasi</h3>
+                <p>Gunakan sandi kunci administrator untuk mengonfigurasi basis data sekolah</p>
+            </div>
+            
+            <div class="login-body-form">
+                <div class="input-group-wrapper">
+                    <i class="fa fa-key input-field-icon"></i>
+                    <input type="password" id="admin-password-input" placeholder="Masukkan Password Akun Admin...">
+                </div>
+                <button id="btn-submit-login" class="btn-submit-premium">
+                    <span>Sign In Ke Panel</span> <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                </button>
+                
+                <div id="login-error" class="error-alert-box" style="display:none;">
+                    <i class="fa-solid fa-circle-exclamation"></i> Kunci Akses Salah! Silakan periksa kembali sandi Anda.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -224,7 +250,7 @@
                     <option value="Guru">Guru</option>
                     <option value="Kepala Sekolah">Kepala Sekolah</option>
                 </select>
-                <label>Mata Pelajaran (Mapel) yang Diajar / Keterangan Kelas:</label>
+                <label>Mata Pelajaran yang Diajar / Keterangan Kelas:</label>
                 <input type="text" id="input-guru-mapel" placeholder="Contoh: Matematika / Wali Kelas 3">
                 <label>Masukkan Link URL Foto Guru / Kepala Sekolah:</label>
                 <input type="text" id="input-guru-foto" placeholder="Tempel/Paste Link URL Gambar">
@@ -265,12 +291,9 @@
                     <div style="flex:1; min-width:280px;">
                         <label>Pilih Tingkatan Kelas Target:</label>
                         <select id="select-input-kelas">
-                            <option value="Kelas 1">Kelas 1</option>
-                            <option value="Kelas 2">Kelas 2</option>
-                            <option value="Kelas 3">Kelas 3</option>
-                            <option value="Kelas 4">Kelas 4</option>
-                            <option value="Kelas 5">Kelas 5</option>
-                            <option value="Kelas 6">Kelas 6</option>
+                            <option value="Kelas 1">Kelas 1</option><option value="Kelas 2">Kelas 2</option>
+                            <option value="Kelas 3">Kelas 3</option><option value="Kelas 4">Kelas 4</option>
+                            <option value="Kelas 5">Kelas 5</option><option value="Kelas 6">Kelas 6</option>
                         </select>
                         <label>Nama Lengkap Siswa Baru:</label>
                         <input type="text" id="input-siswa-nama" placeholder="Ketik nama siswa...">
@@ -283,8 +306,7 @@
                     
                     <div style="flex:1; min-width:280px; border-left:1px solid #ddd; padding-left:15px;" id="admin-border-theme">
                         <h4 style="font-size:13px; margin-bottom:5px;"><i class="fa fa-folder-open"></i> Daftar Nilai yang Tersimpan di Kelas Terpilih</h4>
-                        <div id="admin-list-siswa" style="max-height:230px; overflow-y:auto; margin-top:10px;">
-                            </div>
+                        <div id="admin-list-siswa" style="max-height:230px; overflow-y:auto; margin-top:10px;"></div>
                     </div>
 
                 </div>
@@ -296,4 +318,3 @@
     <script type="module" src="script.js"></script>
 </body>
 </html>
-    
