@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, set, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// Konfigurasi Firebase milikmu
+// Konfigurasi Database Firebase Realtime
 const firebaseConfig = {
   apiKey: "AIzaSyD9BmV4XKXuMWa4PZHpb7Bbt-rHs61m3lE",
   authDomain: "absensi-polri.firebaseapp.com",
@@ -13,209 +13,314 @@ const firebaseConfig = {
   measurementId: "G-82KHRYZBN0"
 };
 
-// Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 1. COUNTER STATISTIK LIVE
-function loadStatistics() {
-    onValue(ref(db, 'statistik'), (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            document.getElementById('stat-siswa').innerText = data.siswa || 0;
-            document.getElementById('stat-guru').innerText = data.guru || 0;
-            document.getElementById('stat-staff').innerText = data.staff || 0;
-            document.getElementById('stat-ekskul').innerText = data.ekskul || 0;
-        }
-    });
-}
+// PASSWORD CONFIGURATION
+const PASSWORD_SISTEM = "SDN1SUSUKANAGUNGKABUPATENCIREBON##2026-2027";
 
-// 2. DATA ARTIKEL & SIDEBAR POPULER
-function loadArticles() {
-    const containerArtikel = document.getElementById('container-artikel');
-    const containerPopuler = document.getElementById('container-populer');
+// ================= POPUP LOGIN INTERAKSI =================
+const btnBukaLogin = document.getElementById('btn-buka-login-admin');
+const overlayLogin = document.getElementById('admin-login-overlay');
+const btnCloseLogin = document.getElementById('btn-close-login');
+const btnSubmitLogin = document.getElementById('btn-submit-login');
+const panelDashboard = document.getElementById('admin-panel-dashboard');
+const btnLogoutAdmin = document.getElementById('btn-logout-admin');
 
-    onValue(ref(db, 'artikel'), (snapshot) => {
-        containerArtikel.innerHTML = '';
-        containerPopuler.innerHTML = '';
-        const data = snapshot.val();
-        
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                containerArtikel.innerHTML += `
-                    <div class="article-card">
-                        <img src="${item.gambar || 'https://via.placeholder.com/600x400'}" alt="Gambar">
-                        <div class="article-info">
-                            <span style="color:red; font-size:12px; font-weight:bold;">${item.kategori || 'Berita'}</span>
-                            <h3 style="margin:5px 0; font-size:16px;">${item.judul}</h3>
-                            <p style="font-size:13px; color:#666; line-height:1.4;">${item.ringkasan || ''}</p>
-                        </div>
-                    </div>
-                `;
+btnBukaLogin.addEventListener('click', () => overlayLogin.classList.remove('hidden-element'));
+btnCloseLogin.addEventListener('click', () => overlayLogin.classList.add('hidden-element'));
 
-                containerPopuler.innerHTML += `
-                    <li>
-                        <a href="#" style="text-decoration:none; color:#333; font-weight:500; font-size:14px;">${item.judul}</a>
-                        <div style="font-size:11px; color:#aaa; margin-top:3px;"><i class="fa fa-calendar"></i> ${item.tanggal || ''}</div>
-                    </li>
-                `;
-            });
-        } else {
-            containerArtikel.innerHTML = '<p class="loading">Belum ada artikel terbaru.</p>';
-        }
-    });
-}
-
-// 3. DATA PENGUMUMAN
-function loadAnnouncements() {
-    const container = document.getElementById('container-pengumuman');
-    onValue(ref(db, 'pengumuman'), (snapshot) => {
-        container.innerHTML = '';
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                container.innerHTML += `
-                    <div class="announcement-item">
-                        <h4 style="color:#8B0000; font-size:16px;">${item.judul}</h4>
-                        <small style="color:#999;"><i class="fa fa-calendar"></i> ${item.tanggal}</small>
-                        <p style="margin-top:8px; font-size:13px; color:#444;">${item.isi}</p>
-                    </div>
-                `;
-            });
-        } else {
-            container.innerHTML = '<p class="loading">Belum ada pengumuman.</p>';
-        }
-    });
-}
-
-// 4. DATA GALERI FOTO
-function loadGallery() {
-    const container = document.getElementById('container-galeri');
-    onValue(ref(db, 'galeri'), (snapshot) => {
-        container.innerHTML = '';
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                container.innerHTML += `
-                    <div class="gallery-card">
-                        <img src="${item.gambar || 'https://via.placeholder.com/400x300'}" alt="Event">
-                        <div class="gallery-meta">
-                            <strong>${item.judul}</strong>
-                            <div style="color:#bbb; font-size:11px; margin-top:4px;">${item.tanggal}</div>
-                        </div>
-                    </div>
-                `;
-            });
-        } else {
-            container.innerHTML = '<p class="loading">Belum ada galeri foto.</p>';
-        }
-    });
-}
-
-// 5. DATA GURU & STAFF
-function loadProfiles() {
-    const containerGuru = document.getElementById('container-guru');
-    const containerStaff = document.getElementById('container-staff');
-
-    // Load Guru
-    onValue(ref(db, 'guru'), (snapshot) => {
-        containerGuru.innerHTML = '';
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                containerGuru.innerHTML += `
-                    <div class="profile-card">
-                        <div class="avatar-circle"><i class="fa fa-user"></i></div>
-                        <strong>${item.nama}</strong><br>
-                        <span class="tag-role">guru</span>
-                        <div class="profile-details">
-                            <p><b>Nomor Induk:</b> ${item.nip || '-'}</p>
-                            <p><b>Tgl Lahir:</b> ${item.tanggal_lahir || '-'}</p>
-                            <p><b>Jenis Kelamin:</b> ${item.jk || '-'}</p>
-                            <p><b>Alamat:</b> ${item.alamat || '-'}</p>
-                            <p><b>No HP:</b> ${item.hp || '-'}</p>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-    });
-
-    // Load Staff
-    onValue(ref(db, 'staff'), (snapshot) => {
-        containerStaff.innerHTML = '';
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                containerStaff.innerHTML += `
-                    <div class="profile-card">
-                        <div class="avatar-circle"><i class="fa fa-user-gear"></i></div>
-                        <strong>${item.nama}</strong><br>
-                        <span class="tag-role" style="background:#edf2f7; color:#4a5568;">staff</span>
-                        <div class="profile-details">
-                            <p><b>Nomor Induk:</b> ${item.nip || '-'}</p>
-                            <p><b>Tgl Lahir:</b> ${item.tanggal_lahir || '-'}</p>
-                            <p><b>Jenis Kelamin:</b> ${item.jk || '-'}</p>
-                            <p><b>Alamat:</b> ${item.alamat || '-'}</p>
-                            <p><b>No HP:</b> ${item.hp || '-'}</p>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-    });
-}
-
-// 6. DATA EKSTRAKURIKULER
-function loadEkskul() {
-    const container = document.getElementById('container-ekskul');
-    onValue(ref(db, 'ekskul'), (snapshot) => {
-        container.innerHTML = '';
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach((key) => {
-                const item = data[key];
-                container.innerHTML += `
-                    <div class="ekskul-card">
-                        <img src="${item.gambar || 'https://via.placeholder.com/150'}" class="ekskul-img" alt="Logo Ekskul">
-                        <div class="ekskul-info">
-                            <h3 style="color:var(--primary-color);">${item.nama}</h3>
-                            <p style="font-size:13px; color:#666; margin-top:5px;">${item.deskripsi}</p>
-                            <div class="ekskul-grid-meta">
-                                <p><b>Pembina:</b> ${item.pembina}</p>
-                                <p><b>Ketua:</b> ${item.ketua}</p>
-                                <p><b>Jadwal:</b> ${item.jadwal}</p>
-                                <p><b>Lokasi:</b> ${item.lokasi}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-    });
-}
-
-// DAFTARKAN PWA SERVICE WORKER
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(res => console.log('PWA Service Worker aktif!'))
-            .catch(err => console.log('Service Worker gagal', err));
-    });
-}
-
-// Inisialisasi saat Web Siap
-window.addEventListener('DOMContentLoaded', () => {
-    loadStatistics();
-    loadArticles();
-    loadAnnouncements();
-    loadGallery();
-    loadProfiles();
-    loadEkskul();
+btnSubmitLogin.addEventListener('click', () => {
+    const inputPass = document.getElementById('admin-password-input').value;
+    if(inputPass === PASSWORD_SISTEM) {
+        document.getElementById('login-error').style.display = 'none';
+        overlayLogin.classList.add('hidden-element');
+        panelDashboard.classList.remove('hidden-element');
+    } else {
+        document.getElementById('login-error').style.display = 'block';
+    }
 });
-          
+
+btnLogoutAdmin.addEventListener('click', () => {
+    document.getElementById('admin-password-input').value = '';
+    panelDashboard.classList.add('hidden-element');
+});
+
+// BACKGROUND SETTING (HITAM / PUTIH) PANEL ADMIN
+document.getElementById('btn-toggle-theme').addEventListener('click', () => {
+    panelDashboard.classList.toggle('dark-mode-active');
+});
+
+// ================= READ REALTIME DATA UNTUK HALAMAN DEPAN =================
+
+// Cek Buka Tutup Akses Website
+onValue(ref(db, 'status_akses'), snapshot => {
+    const status = snapshot.val();
+    const lockScreen = document.getElementById('lock-screen');
+    if(status === 'tutup') lockScreen.classList.remove('hidden');
+    else lockScreen.classList.add('hidden');
+});
+
+// Load Teks Profil Utama (Tentang, Sejarah, Operator, Penjaga)
+onValue(ref(db, 'profil_sekolah'), snapshot => {
+    const data = snapshot.val();
+    if(data) {
+        document.getElementById('view-tentang').innerText = data.tentang || 'Belum diisi.';
+        document.getElementById('view-sejarah').innerText = data.sejarah || 'Belum diisi.';
+        document.getElementById('view-operator').innerText = data.operator || '-';
+        document.getElementById('view-penjaga').innerText = data.penjaga || '-';
+        
+        // Pasang isi teks ke Form Input Admin agar mudah di-edit ulang
+        document.getElementById('input-admin-tentang').value = data.tentang || '';
+        document.getElementById('input-admin-sejarah').value = data.sejarah || '';
+        document.getElementById('input-admin-operator').value = data.operator || '';
+        document.getElementById('input-admin-penjaga').value = data.penjaga || '';
+    }
+});
+
+// Load Mata Pelajaran Halaman Depan
+onValue(ref(db, 'mapel'), snapshot => {
+    const container = document.getElementById('container-mapel'); container.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            container.innerHTML += `<li>${data[key].nama}</li>`;
+        });
+    }
+});
+
+// Load Prestasi Juara Lomba
+onValue(ref(db, 'prestasi'), snapshot => {
+    const container = document.getElementById('container-prestasi'); container.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            container.innerHTML += `
+                <div class="announcement-item" style="border-left: 4px solid #ffc107; margin-bottom: 10px;">
+                    <strong><i class="fa fa-trophy" style="color:#ffc107;"></i> ${data[key].lomba}</strong>
+                    <p style="font-size:13px; margin-top:2px;">Siswa Juara: ${data[key].pemenang}</p>
+                </div>`;
+        });
+    }
+});
+
+// Load Foto Kegiatan & Galeri Utama
+onValue(ref(db, 'galeri'), snapshot => {
+    const container = document.getElementById('container-galeri'); container.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            container.innerHTML += `
+                <div class="gallery-card">
+                    <img src="${data[key].gambar}" alt="Galeri">
+                    <div style="padding:10px; font-size:12px;"><b>${data[key].judul}</b><br><small style="color:gray;">${data[key].tipe}</small></div>
+                </div>`;
+        });
+    }
+});
+
+// Load Struktur Data Guru & Kepala Sekolah beserta Foto Komponen
+onValue(ref(db, 'guru'), snapshot => {
+    const containerGuru = document.getElementById('container-guru'); containerGuru.innerHTML = '';
+    const containerKepsek = document.getElementById('container-kepsek'); containerKepsek.innerHTML = '';
+    const data = snapshot.val();
+    let totalGuru = 0;
+    
+    if(data) {
+        Object.keys(data).forEach(key => {
+            totalGuru++;
+            const item = data[key];
+            const cardMarkup = `
+                <div class="profile-card">
+                    <img src="${item.foto || 'https://via.placeholder.com/150'}" style="width:100px; height:100px; object-fit:cover; border-radius:50%; margin-bottom:8px; border:2px solid #8B0000;">
+                    <br><strong>${item.nama}</strong><br>
+                    <span class="tag-role">${item.peran}</span>
+                    <p style="font-size:12px; color:#555; margin-top:5px;">Mapel: <b>${item.mapel || '-'}</b></p>
+                </div>`;
+            
+            if(item.peran === 'Kepala Sekolah') containerKepsek.innerHTML = cardMarkup;
+            else containerGuru.innerHTML += cardMarkup;
+        });
+    }
+    document.getElementById('stat-guru').innerText = totalGuru;
+});
+
+// Filter Lihat Nilai Per-Kelas (1 s/d 6)
+const selectViewKelas = document.getElementById('select-view-kelas');
+function fetchNilaiPublic() {
+    const kelas = selectViewKelas.value;
+    const tbody = document.getElementById('tbody-view-siswa'); tbody.innerHTML = '';
+    onValue(ref(db, `kelas/${kelas}`), snapshot => {
+        tbody.innerHTML = '';
+        const data = snapshot.val();
+        let hitungSiswa = 0;
+        if(data) {
+            Object.keys(data).forEach(key => {
+                hitungSiswa++;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${data[key].nama}</td>
+                        <td>${data[key].mapel}</td>
+                        <td><b style="color:#8B0000;">${data[key].nilai}</b></td>
+                    </tr>`;
+            });
+        }
+    });
+}
+selectViewKelas.addEventListener('change', fetchNilaiPublic);
+fetchNilaiPublic();
+
+
+// ================= WRITE / MANAJEMEN INPUT PANEL ADMINISTRATOR =================
+
+// 1. Simpan Status Buka Tutup Akses
+document.getElementById('save-status-akses').addEventListener('click', () => {
+    set(ref(db, 'status_akses'), document.getElementById('select-status-akses').value)
+        .then(() => alert('Status operasional web diperbarui!'));
+});
+
+// 2. Simpan Tentang & Sejarah Sekolah
+document.getElementById('save-profil-teks').addEventListener('click', () => {
+    set(ref(db, 'profil_sekolah/tentang'), document.getElementById('input-admin-tentang').value);
+    set(ref(db, 'profil_sekolah/sejarah'), document.getElementById('input-admin-sejarah').value)
+        .then(() => alert('Teks Informasi Sekolah Berhasil Di-update!'));
+});
+
+// 3. Simpan Nama Operator & Penjaga
+document.getElementById('save-staff-lain').addEventListener('click', () => {
+    set(ref(db, 'profil_sekolah/operator'), document.getElementById('input-admin-operator').value);
+    set(ref(db, 'profil_sekolah/penjaga'), document.getElementById('input-admin-penjaga').value)
+        .then(() => alert('Nama Staff Selesai Diperbarui!'));
+});
+
+// 4. Tambah & Hapus Mapel
+document.getElementById('add-admin-mapel').addEventListener('click', () => {
+    const nama = document.getElementById('input-admin-mapel').value;
+    if(nama) { push(ref(db, 'mapel'), { nama }); document.getElementById('input-admin-mapel').value = ''; }
+});
+onValue(ref(db, 'mapel'), snapshot => {
+    const div = document.getElementById('admin-list-mapel'); div.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            div.innerHTML += `<div class="admin-item-row">${data[key].nama} <button class="btn-danger" onclick="globalDeleteData('mapel/${key}')">Hapus</button></div>`;
+        });
+    }
+});
+
+// 5. Tambah & Hapus Prestasi Siswa
+document.getElementById('add-prestasi').addEventListener('click', () => {
+    const lomba = document.getElementById('input-prestasi-nama').value;
+    const pemenang = document.getElementById('input-prestasi-pemenang').value;
+    if(lomba) {
+        push(ref(db, 'prestasi'), { lomba, pemenang });
+        document.getElementById('input-prestasi-nama').value = '';
+        document.getElementById('input-prestasi-pemenang').value = '';
+    }
+});
+onValue(ref(db, 'prestasi'), snapshot => {
+    const div = document.getElementById('admin-list-prestasi'); div.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            div.innerHTML += `<div class="admin-item-row">${data[key].lomba} (${data[key].pemenang}) <button class="btn-danger" onclick="globalDeleteData('prestasi/${key}')">Hapus</button></div>`;
+        });
+    }
+});
+
+// 6. Tambah & Hapus Guru / Kepala Sekolah (Kelola Gambar & Nama)
+document.getElementById('add-guru').addEventListener('click', () => {
+    const nama = document.getElementById('input-guru-nama').value;
+    const peran = document.getElementById('select-guru-peran').value;
+    const mapel = document.getElementById('input-guru-mapel').value;
+    const foto = document.getElementById('input-guru-foto').value;
+    if(nama) {
+        push(ref(db, 'guru'), { nama, peran, mapel, foto });
+        alert('Data guru tersimpan!');
+    }
+});
+onValue(ref(db, 'guru'), snapshot => {
+    const div = document.getElementById('admin-list-guru'); div.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            div.innerHTML += `<div class="admin-item-row">${data[key].nama} - ${data[key].peran} <button class="btn-danger" onclick="globalDeleteData('guru/${key}')">Hapus</button></div>`;
+        });
+    }
+});
+
+// 7. Tambah & Hapus Menu Tampilan Gallery / Foto Kegiatan
+document.getElementById('add-galeri').addEventListener('click', () => {
+    const tipe = document.getElementById('select-galeri-menu').value;
+    const judul = document.getElementById('input-galeri-judul').value;
+    const gambar = document.getElementById('input-galeri-foto').value;
+    if(gambar) {
+        push(ref(db, 'galeri'), { tipe, judul, gambar }).then(() => alert('Gambar terkirim ke database!'));
+    }
+});
+onValue(ref(db, 'galeri'), snapshot => {
+    const div = document.getElementById('admin-list-galeri'); div.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            div.innerHTML += `<div class="admin-item-row">${data[key].judul} (${data[key].tipe}) <button class="btn-danger" onclick="globalDeleteData('galeri/${key}')">Hapus</button></div>`;
+        });
+    }
+});
+
+// 8. Tambah & Hapus Akses Username Guru
+document.getElementById('add-akses-guru').addEventListener('click', () => {
+    const user = document.getElementById('input-akses-username').value;
+    if(user) { push(ref(db, 'akses_guru'), { username: user }); document.getElementById('input-akses-username').value = ''; }
+});
+onValue(ref(db, 'akses_guru'), snapshot => {
+    const div = document.getElementById('admin-list-akses-guru'); div.innerHTML = '';
+    const data = snapshot.val();
+    if(data) {
+        Object.keys(data).forEach(key => {
+            div.innerHTML += `<div class="admin-item-row">${data[key].username} <button class="btn-danger" onclick="globalDeleteData('akses_guru/${key}')">Hapus</button></div>`;
+        });
+    }
+});
+
+// 9. Tambah & Hapus Kelola Nilai Per Kelas (Kelas 1 - Kelas 6)
+document.getElementById('add-siswa-nilai').addEventListener('click', () => {
+    const kelas = document.getElementById('select-input-kelas').value;
+    const nama = document.getElementById('input-siswa-nama').value;
+    const mapel = document.getElementById('input-siswa-mapel').value;
+    const nilai = document.getElementById('input-siswa-nilai').value;
+    if(nama && nilai) {
+        push(ref(db, `kelas/${kelas}`), { nama, mapel, nilai });
+        document.getElementById('input-siswa-nama').value = '';
+    }
+});
+
+// Pantau isi tabel nilai di dashboard admin saat dropdown kelas admin berubah
+const selectInputKelas = document.getElementById('select-input-kelas');
+function renderTabelAdminKelas() {
+    const kelas = selectInputKelas.value;
+    const divList = document.getElementById('admin-list-siswa');
+    onValue(ref(db, `kelas/${kelas}`), snapshot => {
+        divList.innerHTML = '';
+        const data = snapshot.val();
+        if(data) {
+            Object.keys(data).forEach(key => {
+                divList.innerHTML += `<div class="admin-item-row">${data[key].nama} (${data[key].nilai}) <button class="btn-danger" onclick="globalDeleteData('kelas/${kelas}/${key}')">Hapus</button></div>`;
+            });
+        }
+    });
+}
+selectInputKelas.addEventListener('change', renderTabelAdminKelas);
+renderTabelAdminKelas();
+
+// Fungsi Hapus Global melalui Dashboard Admin
+window.globalDeleteData = function(path) {
+    if(confirm("Apakah Anda yakin ingin menghapus aset data teks/foto ini?")) {
+        remove(ref(db, path));
+    }
+};
+
+// Pengisi Statik Default Konstan Luar
+onValue(ref(db, 'statistik/siswa'), s => document.getElementById('stat-siswa').innerText = s.val() || 120);
+onValue(ref(db, 'statistik/staff'), s => document.getElementById('stat-staff').innerText = s.val() || 6);
+        
