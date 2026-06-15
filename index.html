@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Resmi Sekolahku</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
+    <header class="navbar">
+        <div class="logo">Sekolahku</div>
+        <nav class="nav-links">
+            <a href="#" class="active">Beranda</a>
+            <div class="dropdown">
+                <a href="#">Media <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#artikel">Artikel</a>
+                    <a href="#galeri">Galeri</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Profil <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#guru">Data Guru</a>
+                    <a href="#staff">Data Staff</a>
+                    <a href="#ekskul">Ekstrakurikuler</a>
+                </div>
+            </div>
+            <a href="#kontak">Kontak</a>
+        </nav>
+        <div class="search-container">
+            <input type="text" placeholder="Cari...">
+            <button><i class="fa fa-search"></i></button>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <h1>SMA Negeri 1 Lorem Ipsum</h1>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore nihil sed veritatis aut corporis numquam earum porro temporibus excepturi eos.</p>
+            <div class="hero-tag">SMA N 1 LOREM IPSUM</div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fa-solid fa-graduation-cap icon-red"></i>
+                <h3 id="stat-siswa">0</h3>
+                <p>Siswa Aktif</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-chalkboard-user icon-red"></i>
+                <h3 id="stat-guru">0</h3>
+                <p>Guru</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-users-gear icon-red"></i>
+                <h3 id="stat-staff">0</h3>
+                <p>Staf Kependidikan</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-masks-theater icon-red"></i>
+                <h3 id="stat-ekskul">0</h3>
+                <p>Ekstrakurikuler</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="left-content">
+            
+            <section id="artikel" class="content-section">
+                <h2 class="section-title">Artikel Terbaru</h2>
+                <div id="container-artikel" class="grid-layout">
+                    <p class="loading">Memuat artikel...</p>
+                </div>
+            </section>
+
+            <section id="pengumuman" class="content-section">
+                <h2 class="section-title">Pengumuman Terbaru</h2>
+                <div id="container-pengumuman" class="list-layout">
+                    <p class="loading">Memuat pengumuman...</p>
+                </div>
+            </section>
+
+            <section id="galeri" class="content-section">
+                <h2 class="section-title">Galeri Foto Classmeeting</h2>
+                <div id="container-galeri" class="grid-layout-3">
+                    <p class="loading">Memuat galeri...</p>
+                </div>
+            </section>
+
+            <section id="guru" class="content-section">
+                <h2 class="section-title">Daftar Guru</h2>
+                <div id="container-guru" class="grid-layout-card">
+                    <p class="loading">Memuat data guru...</p>
+                </div>
+            </section>
+
+            <section id="staff" class="content-section">
+                <h2 class="section-title">Daftar Staff Kependidikan</h2>
+                <div id="container-staff" class="grid-layout-card">
+                    <p class="loading">Memuat data staff...</p>
+                </div>
+            </section>
+
+            <section id="ekskul" class="content-section">
+                <h2 class="section-title">Ekstrakurikuler (IT Club)</h2>
+                <div id="container-ekskul" class="grid-layout">
+                    </div>
+            </section>
+
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-box">
+                <h3 class="sidebar-title">Artikel Populer</h3>
+                <ol class="popular-list" id="container-populer">
+                    </ol>
+            </div>
+        </aside>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+      
