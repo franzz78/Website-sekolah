@@ -7,90 +7,139 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-body { background-color: var(--bg-light); color: var(--text-dark); transition: 0.3s; }
+body { background-color: var(--bg-light); color: var(--text-dark); transition: background-color 0.3s, color 0.3s; }
 
-/* LOCK SCREEN */
-#lock-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.96); z-index:99999; display:flex; align-items:center; justify-content:center; color:white; }
-.lock-box { text-align:center; padding:35px; background:#1e1e1e; border-radius:8px; border:2px solid var(--primary-color); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+/* LOCK SCREEN BLOCK */
+#lock-screen { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.96); z-index:99999; display:flex; align-items:center; justify-content:center; color:white; padding: 20px; }
+.lock-box { text-align:center; padding:35px; background:#1e1e1e; border-radius:8px; border:2px solid var(--primary-color); box-shadow: 0 0 20px rgba(0,0,0,0.5); max-width: 400px; width: 100%; }
 .hidden { display: none !important; }
 .hidden-element { display: none !important; }
 
-/* NAVBAR */
+/* ================= NAVBAR (RESPONSIF) ================= */
 .navbar { display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-color); padding: 15px 5%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 .logo { color: var(--text-light); font-size: 20px; font-weight: bold; }
 .nav-links { display: flex; gap: 15px; align-items:center; }
-.nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; font-weight: 500; }
+.nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
 .nav-links a:hover, .nav-links a.active { color: var(--text-light); }
-.btn-admin-nav { background: #550000; color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+.btn-admin-nav { background: #550000; color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 5px; }
 
-/* HERO */
-.hero-section { background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1470') no-repeat center center/cover; height: 380px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); margin-bottom: 80px; }
-.hero-overlay { background: rgba(0, 0, 0, 0.65); position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-.hero-overlay h1 { font-size: 34px; margin-bottom: 10px; font-weight: 700; }
+/* ================= HERO SECTION ================= */
+.hero-section { background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1470') no-repeat center center/cover; min-height: 340px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); margin-bottom: 80px; padding: 20px; }
+.hero-overlay { background: rgba(0, 0, 0, 0.65); position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; z-index: 1; }
+.hero-overlay h1 { font-size: clamp(24px, 4vw, 36px); margin-bottom: 10px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.hero-overlay p { font-size: clamp(13px, 2vw, 16px); max-width: 700px; }
 .hero-tag { margin-top: 15px; font-size: 24px; font-weight: 800; opacity: 0.12; letter-spacing: 2px; }
 
-/* STATISTIK MELAYANG */
-.stats-container { position: absolute; bottom: -50px; display: flex; gap: 20px; width: 90%; max-width: 1000px; }
-.stat-card { background-color: white; color: #333; flex: 1; padding: 20px; border-radius: 8px; text-align: center; box-shadow: var(--card-shadow); border-bottom: 4px solid var(--primary-color); }
-.icon-red { color: var(--primary-color); }
-.stat-card h3 { font-size: 24px; margin-bottom: 3px; }
+/* STATISTIK MELAYANG (ADAPTIF NYAMAN) */
+.stats-container { position: absolute; bottom: -50px; display: flex; gap: 15px; width: 90%; max-width: 1000px; z-index: 2; }
+.stat-card { background-color: white; color: #333; flex: 1; padding: 15px; border-radius: 8px; text-align: center; box-shadow: var(--card-shadow); border-bottom: 4px solid var(--primary-color); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.icon-red { color: var(--primary-color); font-size: 22px; margin-bottom: 5px; }
+.stat-card h3 { font-size: 22px; margin-bottom: 2px; font-weight: 700; }
+.stat-card p { font-size: 12px; color: #666; }
 
-/* LAYOUT PANEL */
-.main-content { display: flex; max-width: 1200px; margin: 0 auto; padding: 20px; gap: 25px; }
-.left-content { flex: 3; }
-.sidebar { flex: 1; }
+/* ================= KONTEN LAYOUT (POTRET & LANDSCAPE) ================= */
+.main-content { display: flex; max-width: 1200px; margin: 0 auto; padding: 20px; gap: 25px; width: 100%; }
+.left-content { flex: 3; min-width: 0; }
+.sidebar { flex: 1; min-width: 250px; }
 .content-section { background-color: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; box-shadow: var(--card-shadow); }
 .section-title { font-size: 18px; border-left: 5px solid var(--primary-color); padding-left: 10px; margin-bottom: 20px; color: var(--primary-color); font-weight: 700; }
 
+/* GRID OTOMATIS MENYESUAIKAN UKURAN LAYAR */
 .grid-layout { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.grid-layout-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
-.grid-layout-card { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+.grid-layout-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+.grid-layout-card { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
 
-/* KARTU KOMPONEN */
+/* KOMPONEN KARTU */
 .announcement-item { border: 1px solid #f0f0f0; padding: 15px; border-radius: 6px; background-color: #fafafa; }
 .gallery-card { border: 1px solid #eaeaea; border-radius: 6px; overflow: hidden; background: #fff; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-.gallery-card img { width: 100%; height: 140px; object-fit: cover; }
+.gallery-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
 .profile-card { background: #ffffff; border: 1px solid #eef2f5; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
 .tag-role { display: inline-block; background: #fee2e2; color: var(--primary-color); padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; margin: 5px 0; }
 .sidebar-box { background-color: white; padding: 20px; border-radius: 8px; box-shadow: var(--card-shadow); }
 .sidebar-title { color: var(--primary-color); margin-bottom: 8px; font-size: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
 
-/* MODAL BOX SYSTEM */
-#admin-login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:99999; display:flex; align-items:center; justify-content:center; }
-.login-modal-box { background: white; padding: 35px; border-radius: 10px; text-align: center; width: 90%; max-width: 380px; position: relative; }
+/* TABEL RESPONSIF KELAS */
+#table-siswa-nilai { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+#table-siswa-nilai th, #table-siswa-nilai td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+#table-siswa-nilai th { background: var(--primary-color); color: white; font-weight: 600; }
+
+/* MODAL LOGIN POPUP */
+#admin-login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:99999; display:flex; align-items:center; justify-content:center; padding: 15px; }
+.login-modal-box { background: white; padding: 30px 20px; border-radius: 10px; text-align: center; width: 100%; max-width: 360px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 .close-x { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color:#666; }
 .login-modal-box input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 15px; }
 .login-modal-box button { background: var(--primary-color); color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-/* PANEL DASHBOARD ADMIN */
-#admin-panel-dashboard { position: fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-light); z-index:999999; overflow-y:auto; }
-.admin-header { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; color: white; padding: 15px 3%; border-bottom: 4px solid var(--primary-color); flex-wrap: wrap; gap:10px; }
-.admin-header h2 { font-size: 18px; }
-.admin-grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 25px; max-width: 1400px; margin: 0 auto; }
-.admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: var(--card-shadow); border-top: 3px solid var(--primary-color); }
-.admin-card h3 { font-size: 15px; color:#222; margin-bottom: 5px; }
-.admin-card label { display: block; font-size: 11px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; color:#555; }
-.admin-card input, .admin-card textarea, .admin-card select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 8px; font-size: 13px; }
+/* ================= PANEL UTAMA ADMINISTRATOR (FULL SCREEN SCROLLABLE) ================= */
+#admin-panel-dashboard { position: fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-light); z-index:999999; overflow-y:auto; padding-bottom: 40px; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; color: white; padding: 15px 4%; border-bottom: 4px solid var(--primary-color); gap: 15px; }
+.admin-header h2 { font-size: clamp(15px, 2.5vw, 18px); }
+.admin-controls-top { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.btn-save { background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+.admin-grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
+.admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: var(--card-shadow); border-top: 3px solid var(--primary-color); display: flex; flex-direction: column; }
+.admin-card h3 { font-size: 14px; color:#222; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+.admin-card label { display: block; font-size: 11px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; color:#555; }
+.admin-card input, .admin-card textarea, .admin-card select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 8px; font-size: 13px; background-color: #fff; }
+
+.btn-save { background: var(--primary-color); color: white; border: none; padding: 9px 15px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
+.btn-save:hover { background: #660000; }
 .btn-danger { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.btn-danger:hover { background: #bd2130; }
 .btn-secondary { background: #6c757d; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-size: 12px; }
 
-.list-admin-items { max-height: 150px; overflow-y: auto; margin-top: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; }
-.admin-item-row { display: flex; justify-content: space-between; background: #f8f9fa; padding: 6px 10px; margin-bottom: 5px; font-size: 12px; border-radius: 4px; align-items: center; color:#333; }
+.list-admin-items { max-height: 160px; overflow-y: auto; margin-top: 10px; border: 1px solid #eee; padding: 5px; border-radius: 4px; background: #fafafa; }
+.admin-item-row { display: flex; justify-content: space-between; background: #ffffff; padding: 6px 10px; margin-bottom: 5px; font-size: 12px; border-radius: 4px; align-items: center; color:#333; border: 1px solid #f0f0f0; }
 
-/* THEME BLACK MODE MENU ADMINISTRATOR */
+/* ================= BLACK THEME MODE (MENU ADMIN) ================= */
 #admin-panel-dashboard.dark-mode-active { background-color: #121212 !important; color: #fff !important; }
-#admin-panel-dashboard.dark-mode-active .admin-card { background: #1e1e1e !important; color: #fff !important; border-top: 3px solid #ff3333; }
+#admin-panel-dashboard.dark-mode-active .admin-card { background: #1e1e1e !important; color: #fff !important; border-top: 3px solid #ff3333; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 #admin-panel-dashboard.dark-mode-active .admin-card h3, #admin-panel-dashboard.dark-mode-active .admin-card label { color: #fff !important; }
 #admin-panel-dashboard.dark-mode-active .admin-card input, #admin-panel-dashboard.dark-mode-active .admin-card textarea, #admin-panel-dashboard.dark-mode-active .admin-card select { background: #2b2b2b; color: white; border: 1px solid #444; }
-#admin-panel-dashboard.dark-mode-active .admin-item-row { background: #2d2d2d; color:#fff; }
+#admin-panel-dashboard.dark-mode-active .admin-item-row { background: #252525; color:#fff; border-color: #333; }
+#admin-panel-dashboard.dark-mode-active .list-admin-items { background: #1a1a1a; border-color: #333; }
 #admin-panel-dashboard.dark-mode-active #admin-border-theme { border-left: 1px solid #444 !important; }
 
+/* ================= BREAKPOINT MEDIA QUERIES (POTRET & LANDSCAPE) ================= */
+
+/* LAYOUT SMARTPHONE POSISI POTRET (Layar Tegak Menurun) */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 10px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; }
-    .stats-container { position: static; margin-top: 15px; flex-direction: column; }
-    .hero-section { height: auto; padding: 40px 10px; margin-bottom: 15px; }
-    .main-content { flex-direction: column; }
+    .navbar { flex-direction: column; gap: 12px; padding: 12px; text-align: center; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+    .nav-links a { font-size: 13px; padding: 4px 6px; }
+    .btn-admin-nav { width: 100%; justify-content: center; margin-top: 5px; }
+
+    .hero-section { min-height: 260px; margin-bottom: 140px; }
+    .stats-container { flex-direction: column; gap: 10px; bottom: -120px; width: 92%; }
+    .stat-card { padding: 12px; }
+
+    .main-content { flex-direction: column; padding: 10px; gap: 15px; }
+    .left-content, .sidebar { width: 100%; flex: none; }
+    
+    .content-section { padding: 15px; margin-bottom: 15px; }
+    
+    /* Tabel dibuat bisa digeser ke kanan jika teks panjang di layar potret */
+    #kelas-section { overflow-x: auto; }
+    
+    .admin-header { flex-direction: column; text-align: center; padding: 15px; }
+    .admin-controls-top { width: 100%; justify-content: center; }
+    .admin-controls-top button { flex: 1; text-align: center; font-size: 11px; }
+    
+    .admin-card { grid-column: span 1 !important; } /* Di HP potret, box nilai tidak boleh melebar terpotong */
+    #admin-panel-dashboard .admin-card div[style*="display:flex"] { flex-direction: column; gap: 15px; }
+    #admin-panel-dashboard #admin-border-theme { border-left: none !important; border-top: 1px solid #ddd; padding-left: 0; padding-top: 15px; }
 }
+
+/* LAYOUT SMARTPHONE POSISI LANDSCAPE (HP Dimiringkan / Lebar Pendek) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-section { min-height: 180px; margin-bottom: 70px; }
+    .hero-tag { display: none; }
+    .stats-container { position: static; margin: 15px auto 0; flex-direction: row; width: 100%; }
+    
+    /* Mencegah panel admin menutupi layar tanpa batas scroll */
+    .admin-header { padding: 8px 3%; }
+    .admin-grid-layout { padding: 10px; gap: 15px; }
+    .login-modal-box { padding: 20px; }
+    .login-modal-box input { margin: 8px 0; }
+                        }
+                 
