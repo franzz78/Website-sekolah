@@ -1,3 +1,4 @@
+/* ================= GLOBAL VARIABEL & DEFAULT RESET ================= */
 :root {
     --primary-color: #8B0000;
     --text-dark: #333333;
@@ -6,130 +7,625 @@
     --card-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', sans-serif; 
+    scroll-behavior: smooth; 
+}
+
+body { 
+    background-color: var(--bg-light); 
+    color: var(--text-dark); 
+    overflow-x: hidden; 
+}
 
 .hidden { display: none !important; }
 .hidden-element { display: none !important; }
 
-/* ================= NAVBAR & HAMBURGER MENU RESPONSIVE ================= */
+/* ================= LOCK SCREEN LAYER PANEL ================= */
+#lock-screen { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.96); 
+    z-index: 99999; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    padding: 20px; 
+}
+.lock-box { 
+    text-align: center; 
+    padding: 35px; 
+    background: #1e1e1e; 
+    border-radius: 8px; 
+    border: 2px solid var(--primary-color); 
+    box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+    max-width: 400px; 
+    width: 100%; 
+}
+
+/* ================= NAVBAR & BRANDING POJOK KIRI ATAS ================= */
 .navbar { 
-    display: flex; justify-content: space-between; align-items: center; 
-    background-color: var(--primary-color); padding: 12px 5%; 
-    position: sticky; top: 0; z-index: 1000; box-shadow: 0 3px 15px rgba(0,0,0,0.15); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: var(--primary-color); 
+    padding: 12px 5%; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 3px 15px rgba(0,0,0,0.15); 
 }
 
-.brand-container { display: flex; align-items: center; gap: 12px; }
+.brand-container { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+/* Ruang Kosong Khusus untuk Menaruh Gambar Logo Sekolah */
 .logo-space {
-    width: 44px; height: 44px; background-color: rgba(255, 255, 255, 0.15);
-    border: 2px dashed rgba(255, 255, 255, 0.5); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; flex-shrink: 0;
+    width: 44px; 
+    height: 44px; 
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 2px dashed rgba(255, 255, 255, 0.5); 
+    border-radius: 8px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #fff; 
+    font-size: 18px; 
+    flex-shrink: 0;
 }
 
-.school-titles { display: flex; flex-direction: column; }
-.title-main { color: #fff; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
-.title-sub { color: rgba(255, 255, 255, 0.9); font-size: 11px; font-weight: 600; margin-top: 1px; }
-.title-managed { color: rgba(255, 255, 255, 0.65); font-size: 9px; font-style: italic; margin-top: 1px; }
+.school-titles { 
+    display: flex; 
+    flex-direction: column; 
+}
 
-.nav-links { display: flex; gap: 20px; align-items: center; }
-.nav-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.2s; }
-.nav-links a:hover, .nav-links a.active { color: #fff; }
-.btn-admin-nav { background: #550000; color: white; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 5px; }
+.title-main { 
+    color: #fff; 
+    font-size: 15px; 
+    font-weight: 800; /* Teks Tebal Sesuai Permintaan */
+    letter-spacing: 0.5px; 
+    line-height: 1.2; 
+}
 
-/* Tombol Garis Tiga Tersembunyi Secara Default di Desktop */
+.title-sub { 
+    color: rgba(255, 255, 255, 0.9); 
+    font-size: 11px; 
+    font-weight: 600; 
+    margin-top: 1px; 
+}
+
+.title-managed { 
+    color: rgba(255, 255, 255, 0.65); 
+    font-size: 9px; 
+    font-style: italic; 
+    margin-top: 1px; 
+}
+
+.nav-links { 
+    display: flex; 
+    gap: 20px; 
+    align-items: center; 
+}
+
+.nav-links a { 
+    color: rgba(255, 255, 255, 0.8); 
+    text-decoration: none; 
+    font-size: 14px; 
+    font-weight: 500; 
+    transition: 0.2s; 
+}
+
+.nav-links a:hover, .nav-links a.active { 
+    color: #fff; 
+}
+
+.btn-admin-nav { 
+    background: #550000; 
+    color: white; 
+    border: none; 
+    padding: 7px 14px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+}
+
+/* Tombol Menu Garis Tiga (Hamburger Menu) */
 .hamburger-toggle {
-    display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer;
+    display: none; 
+    background: none; 
+    border: none; 
+    color: white; 
+    font-size: 24px; 
+    cursor: pointer;
 }
 
-/* ================= REVISI LAYOUT BANNER WELCOME ================= */
+/* ================= REVISI UTAMA LAYOUT HERO BANNER (LINK SUPABASE) ================= */
 .hero-section { 
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1470') no-repeat center center/cover; 
-    height: 75vh; min-height: 350px; display: flex; align-items: center; justify-content: center; text-align: center; 
+    background: linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.52)), 
+                url('https://tareqwavlgqoexxffuuc.supabase.co/storage/v1/object/sign/Logo_Website/Logo_Website/unnamed%20(2).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9kNWIxNTEyZS03YTE5LTQzY2UtYWUxNC00ZmRkNzMyZmIyODMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJMb2dvX1dlYnNpdGUvTG9nb19XZWJzaXRlL3VubmFtZWQgKDIpLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE1MDkyNTAsImV4cCI6MTgxMzA0NTI1MH0.Or3r230QssexbimfbbECc3gnPlckXA-HhNx-KMntRmw') 
+                no-repeat center center/cover; 
+    height: 75vh; 
+    min-height: 350px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
 }
 
-.welcome-text-box { padding: 20px; color: white; }
-.welcome-text-box h2 { font-size: clamp(16px, 3vw, 22px); font-weight: 400; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; color: #f1f5f9; }
-.welcome-text-box h1 { font-size: clamp(26px, 5vw, 46px); font-weight: 800; text-shadow: 2px 4px 10px rgba(0,0,0,0.4); line-height: 1.2; }
-.welcome-text-box h3 { font-size: clamp(15px, 2.5vw, 20px); font-weight: 600; margin-top: 8px; letter-spacing: 1px; color: #e2e8f0; }
+.welcome-text-box { 
+    padding: 20px; 
+    color: white; 
+}
 
-/* ================= STRUKTUR KONTEN HALAMAN UTAMA ================= */
-.main-content-simple { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-.main-page-section { background: white; padding: 35px 25px; border-radius: 12px; margin-bottom: 40px; box-shadow: var(--card-shadow); }
-.center-section-title { font-size: 20px; font-weight: 700; color: var(--primary-color); text-align: center; margin-bottom: 30px; position: relative; padding-bottom: 10px; }
-.center-section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--primary-color); border-radius: 2px; }
+.welcome-text-box h2 { 
+    font-size: clamp(16px, 3vw, 22px); 
+    font-weight: 400; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    margin-bottom: 5px; 
+    color: #f1f5f9; 
+}
 
-/* KARTU GRID */
-.grid-layout-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-.grid-layout-card { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+.welcome-text-box h1 { 
+    font-size: clamp(26px, 5vw, 46px); 
+    font-weight: 800; 
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.4); 
+    line-height: 1.2; 
+}
 
-.gallery-card { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; }
-.gallery-card img { width: 100%; height: 160px; object-fit: cover; display: block; transition: 0.3s; }
-.gallery-card img:hover { transform: scale(1.05); }
+.welcome-text-box h3 { 
+    font-size: clamp(15px, 2.5vw, 20px); 
+    font-weight: 600; 
+    margin-top: 8px; 
+    letter-spacing: 1px; 
+    color: #e2e8f0; 
+}
 
-.profile-card { background: #fff; border: 1px solid #f1f5f9; padding: 20px 15px; border-radius: 8px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.02); }
-.profile-card img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 3px solid #f1f5f9; }
-.profile-card h4 { font-size: 14px; font-weight: 700; color:#1e293b; }
-.tag-role { display: inline-block; background: #fee2e2; color: var(--primary-color); padding: 2px 10px; border-radius: 12px; font-size: 10px; font-weight: bold; margin: 4px 0; }
+/* ================= STRUKTUR TATA LETAK HALAMAN UTAMA ================= */
+.main-content-simple { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 40px 20px; 
+}
 
-/* ================= INTERFACES REKAP & TABLE BARU ================= */
-.filter-action-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 8px; }
-.filter-box-inline label { font-weight: 700; font-size: 14px; color:#475569; }
-.filter-box-inline select { padding: 8px 14px; border-radius: 6px; border: 1px solid #cbd5e1; outline: none; font-weight: 600; }
+.main-page-section { 
+    background: white; 
+    padding: 35px 25px; 
+    border-radius: 12px; 
+    margin-bottom: 40px; 
+    box-shadow: var(--card-shadow); 
+}
 
-.rekap-buttons-group { display: flex; gap: 10px; }
-.btn-download { border: none; padding: 8px 16px; border-radius: 6px; color: white; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
-.excel-btn { background-color: #16a34a; box-shadow: 0 3px 10px rgba(22,163,74,0.25); }
+.center-section-title { 
+    font-size: 20px; 
+    font-weight: 700; 
+    color: var(--primary-color); 
+    text-align: center; 
+    margin-bottom: 30px; 
+    position: relative; 
+    padding-bottom: 10px; 
+}
+
+.center-section-title::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 60px; 
+    height: 3px; 
+    background: var(--primary-color); 
+    border-radius: 2px; 
+}
+
+/* LAYOUT KARTU GRID STRUKTUR */
+.grid-layout-3 { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 20px; 
+}
+
+.grid-layout-card { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 20px; 
+}
+
+/* KARTU FOTO SEKOLAH (GALERI) */
+.gallery-card { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04); 
+    border: 1px solid #f1f5f9; 
+}
+.gallery-card img { 
+    width: 100%; 
+    height: 160px; 
+    object-fit: cover; 
+    display: block; 
+    transition: 0.3s; 
+}
+.gallery-card img:hover { 
+    transform: scale(1.05); 
+}
+
+/* KARTU FOTO GURU & KEPSEK beserta NAMA */
+.profile-card { 
+    background: #fff; 
+    border: 1px solid #f1f5f9; 
+    padding: 20px 15px; 
+    border-radius: 8px; 
+    text-align: center; 
+    box-shadow: 0 3px 8px rgba(0,0,0,0.02); 
+}
+.profile-card img { 
+    width: 85px; 
+    height: 85px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-bottom: 10px; 
+    border: 3px solid #f1f5f9; 
+}
+.profile-card h4 { 
+    font-size: 14px; 
+    font-weight: 700; 
+    color: #1e293b; 
+}
+.tag-role { 
+    display: inline-block; 
+    background: #fee2e2; 
+    color: var(--primary-color); 
+    padding: 2px 10px; 
+    border-radius: 12px; 
+    font-size: 10px; 
+    font-weight: bold; 
+    margin: 4px 0; 
+}
+
+/* ================= INTERFACES REKAP & TABEL PREMIUM ================= */
+.filter-action-bar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    background: #f8fafc; 
+    padding: 15px; 
+    border-radius: 8px; 
+}
+.filter-box-inline label { 
+    font-weight: 700; 
+    font-size: 14px; 
+    color: #475569; 
+}
+.filter-box-inline select { 
+    padding: 8px 14px; 
+    border-radius: 6px; 
+    border: 1px solid #cbd5e1; 
+    outline: none; 
+    font-weight: 600; 
+}
+
+/* Kelompok Tombol Unduh Laporan Dokumen Excel/PDF */
+.rekap-buttons-group { 
+    display: flex; 
+    gap: 10px; 
+}
+.btn-download { 
+    border: none; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    color: white; 
+    font-weight: 700; 
+    font-size: 13px; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    transition: 0.2s; 
+}
+.excel-btn { 
+    background-color: #16a34a; 
+    box-shadow: 0 3px 10px rgba(22,163,74,0.25); 
+}
 .excel-btn:hover { background-color: #15803d; }
-.pdf-btn { background-color: #dc2626; box-shadow: 0 3px 10px rgba(220,38,38,0.25); }
+
+.pdf-btn { 
+    background-color: #dc2626; 
+    box-shadow: 0 3px 10px rgba(220,38,38,0.25); 
+}
 .pdf-btn:hover { background-color: #b91c1c; }
 
-.table-premium-style { width: 100%; border-collapse: collapse; font-size: 14px; background: white; min-width: 500px; }
-.table-premium-style th { background: var(--primary-color); color: white; font-weight: 600; padding: 12px; text-align: left; }
-.table-premium-style td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #334155; }
-.table-premium-style tbody tr:nth-child(even) { background-color: #f8fafc; }
+.table-premium-style { 
+    width: 100%; 
+    border-collapse: collapse; 
+    font-size: 14px; 
+    background: white; 
+    min-width: 500px; 
+}
+.table-premium-style th { 
+    background: var(--primary-color); 
+    color: white; 
+    font-weight: 600; 
+    padding: 12px; 
+    text-align: left; 
+}
+.table-premium-style td { 
+    padding: 12px; 
+    border-bottom: 1px solid #e2e8f0; 
+    color: #334155; 
+}
+.table-premium-style tbody tr:nth-child(even) { 
+    background-color: #f8fafc; 
+}
 
-/* ================= STATISTIK BARU (GESER POSISI KE BAWAH) ================= */
-.stats-footer-section { margin-top: 20px; padding: 10px 0; }
-.stats-footer-container { display: flex; gap: 20px; width: 100%; justify-content: center; }
-.stat-footer-card { background: white; flex: 1; max-width: 300px; padding: 20px; border-radius: 10px; text-align: center; box-shadow: var(--card-shadow); border-top: 4px solid var(--primary-color); }
-.icon-footer-red { color: var(--primary-color); font-size: 24px; margin-bottom: 6px; }
-.stat-footer-card h3 { font-size: 26px; font-weight: 800; color: #0f172a; }
-.stat-footer-card p { font-size: 13px; color: #64748b; font-weight: 500; }
+/* ================= MENU STATISTIK (PINDAH KE BAWAH HALAMAN) ================= */
+.stats-footer-section { 
+    margin-top: 20px; 
+    padding: 10px 0; 
+}
+.stats-footer-container { 
+    display: flex; 
+    gap: 20px; 
+    width: 100%; 
+    justify-content: center; 
+}
+.stat-footer-card { 
+    background: white; 
+    flex: 1; 
+    max-width: 300px; 
+    padding: 20px; 
+    border-radius: 10px; 
+    text-align: center; 
+    box-shadow: var(--card-shadow); 
+    border-top: 4px solid var(--primary-color); 
+}
+.icon-footer-red { 
+    color: var(--primary-color); 
+    font-size: 24px; 
+    margin-bottom: 6px; 
+}
+.stat-footer-card h3 { 
+    font-size: 26px; 
+    font-weight: 800; 
+    color: #0f172a; 
+}
+.stat-footer-card p { 
+    font-size: 13px; 
+    color: #64748b; 
+    font-weight: 500; 
+}
 
-/* FOOTER */
-.footer-simple-managed { background: white; text-align: center; padding: 25px; border-top: 1px solid #e2e8f0; margin-top: 40px; }
-.footer-simple-managed p strong { color: var(--primary-color); }
+/* FOOTER INI DIKELOLA OLEH OPERATOR */
+.footer-simple-managed { 
+    background: white; 
+    text-align: center; 
+    padding: 25px; 
+    border-top: 1px solid #e2e8f0; 
+    margin-top: 40px; 
+}
+.footer-simple-managed p strong { 
+    color: var(--primary-color); 
+}
 
-/* ================= PERBAIKAN POPUP LOGIN ADMIN ================= */
-#admin-login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.login-modal-box { background: #ffffff; border-radius: 16px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); overflow: hidden; animation: modalPopUp 0.3s ease-out; }
-@keyframes modalPopUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.close-x-btn { position: absolute; top: 12px; right: 15px; background: rgba(0, 0, 0, 0.2); border: none; font-size: 22px; cursor: pointer; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.login-header-accent { background: linear-gradient(135deg, #8B0000 0%, #550000 100%); padding: 30px 20px; text-align: center; color: #ffffff; }
-.login-icon-circle { width: 55px; height: 55px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; font-size: 24px; }
+/* ================= POPUP BOX LOGIN ADMINISTRATOR PREMIUM ================= */
+#admin-login-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(15, 23, 42, 0.75); 
+    backdrop-filter: blur(4px); 
+    z-index: 99999; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+.login-modal-box { 
+    background: #ffffff; 
+    border-radius: 16px; 
+    width: 100%; 
+    max-width: 400px; 
+    position: relative; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); 
+    overflow: hidden; 
+    animation: modalPopUp 0.3s ease-out; 
+}
+@keyframes modalPopUp { 
+    from { transform: scale(0.9); opacity: 0; } 
+    to { transform: scale(1); opacity: 1; } 
+}
+.close-x-btn { 
+    position: absolute; 
+    top: 12px; 
+    right: 15px; 
+    background: rgba(0, 0, 0, 0.2); 
+    border: none; 
+    font-size: 22px; 
+    cursor: pointer; 
+    color: #fff; 
+    width: 28px; 
+    height: 28px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.login-header-accent { 
+    background: linear-gradient(135deg, #8B0000 0%, #550000 100%); 
+    padding: 30px 20px; 
+    text-align: center; 
+    color: #ffffff; 
+}
+.login-icon-circle { 
+    width: 55px; 
+    height: 55px; 
+    background: rgba(255, 255, 255, 0.15); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto 10px auto; 
+    font-size: 24px; 
+}
 .login-body-form { padding: 25px; }
 .input-group-wrapper { position: relative; margin-bottom: 15px; }
-.input-field-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
-.login-body-form input[type="password"] { width: 100%; padding: 11px 11px 11px 36px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background-color: #f8fafc; }
-.btn-submit-premium { background: var(--primary-color); color: white; border: none; padding: 11px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2); }
-.error-alert-box { margin-top: 12px; background-color: #fef2f2; border: 1px solid #fee2e2; color: #dc2626; padding: 8px 12px; border-radius: 6px; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+.input-field-icon { 
+    position: absolute; 
+    left: 12px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: #94a3b8; 
+}
+.login-body-form input[type="password"] { 
+    width: 100%; 
+    padding: 11px 11px 11px 36px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 8px; 
+    font-size: 14px; 
+    background-color: #f8fafc; 
+}
+.btn-submit-premium { 
+    background: var(--primary-color); 
+    color: white; 
+    border: none; 
+    padding: 11px; 
+    width: 100%; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 14px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2); 
+}
+.error-alert-box { 
+    margin-top: 12px; 
+    background-color: #fef2f2; 
+    border: 1px solid #fee2e2; 
+    color: #dc2626; 
+    padding: 8px 12px; 
+    border-radius: 6px; 
+    font-size: 12px; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
 
-/* ================= PANEL UTAMA ADMINISTRATOR ================= */
-#admin-panel-dashboard { position: fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-light); z-index:999999; overflow-y:auto; padding-bottom: 40px; }
-.admin-header { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; color: white; padding: 15px 4%; border-bottom: 4px solid var(--primary-color); }
-.admin-grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
-.admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-top: 3px solid var(--primary-color); display: flex; flex-direction: column; }
-.admin-card h3 { font-size: 14px; color:#0f172a; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-.admin-card label { display: block; font-size: 11px; font-weight: bold; margin-top: 10px; margin-bottom: 4px; color:#475569; }
-.admin-card input, .admin-card textarea, .admin-card select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; margin-bottom: 8px; font-size: 13px; }
+/* ================= DASHBOARD INTEGRASI INTERNAL PANEL ADMIN ================= */
+#admin-panel-dashboard { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: var(--bg-light); 
+    z-index: 999999; 
+    overflow-y: auto; 
+    padding-bottom: 40px; 
+}
+.admin-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: #1e1e1e; 
+    color: white; 
+    padding: 15px 4%; 
+    border-bottom: 4px solid var(--primary-color); 
+}
+.admin-grid-layout { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px; 
+    padding: 20px; 
+    max-width: 1400px; 
+    margin: 0 auto; 
+}
+.admin-card { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+    border-top: 3px solid var(--primary-color); 
+    display: flex; 
+    flex-direction: column; 
+}
+.admin-card h3 { 
+    font-size: 14px; 
+    color: #0f172a; 
+    margin-bottom: 5px; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+.admin-card label { 
+    display: block; 
+    font-size: 11px; 
+    font-weight: bold; 
+    margin-top: 10px; 
+    margin-bottom: 4px; 
+    color: #475569; 
+}
+.admin-card input, .admin-card textarea, .admin-card select { 
+    width: 100%; 
+    padding: 8px; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 4px; 
+    margin-bottom: 8px; 
+    font-size: 13px; 
+}
 
-.btn-save { background: var(--primary-color); color: white; border: none; padding: 9px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+.btn-save { 
+    background: var(--primary-color); 
+    color: white; 
+    border: none; 
+    padding: 9px 15px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 12px; 
+}
 .btn-danger { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
 .btn-secondary { background: #475569; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
 
-/* PANEL STRUKTUR RESET KHUSUS ADMIN */
-.reset-buttons-vertical { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-.btn-reset-action { border: none; padding: 10px; border-radius: 6px; color: white; font-weight: 700; font-size: 12px; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+/* PANEL MENU SISTEM RESET DATA BERKALA */
+.reset-buttons-vertical { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+.btn-reset-action { 
+    border: none; 
+    padding: 10px; 
+    border-radius: 6px; 
+    color: white; 
+    font-weight: 700; 
+    font-size: 12px; 
+    cursor: pointer; 
+    text-align: left; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    transition: 0.2s; 
+}
 .action-harian { background-color: #f59e0b; }
 .action-harian:hover { background-color: #d97706; }
 .action-mingguan { background-color: #3b82f6; }
@@ -140,35 +636,63 @@ body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: h
 .list-admin-items { max-height: 160px; overflow-y: auto; margin-top: 10px; border: 1px solid #e2e8f0; padding: 5px; border-radius: 4px; background: #f8fafc; }
 .admin-item-row { display: flex; justify-content: space-between; background: #fff; padding: 6px 10px; margin-bottom: 5px; font-size: 12px; border-radius: 4px; align-items: center; border: 1px solid #e2e8f0; }
 
-/* DARK MODE ADMIN CONTROL */
+/* CONFIG MODUL PANEL BLACK/DARK THEME ADMIN */
 #admin-panel-dashboard.dark-mode-active { background-color: #121212 !important; color: #fff !important; }
 #admin-panel-dashboard.dark-mode-active .admin-card { background: #1e1e1e !important; color: #fff !important; border-top: 3px solid #ef4444; }
 #admin-panel-dashboard.dark-mode-active .admin-card h3, #admin-panel-dashboard.dark-mode-active .admin-card label { color: #fff !important; }
 #admin-panel-dashboard.dark-mode-active .admin-card input, #admin-panel-dashboard.dark-mode-active .admin-card textarea, #admin-panel-dashboard.dark-mode-active .admin-card select { background: #2b2b2b; color: white; border: 1px solid #444; }
-#admin-panel-dashboard.dark-mode-active .admin-item-row { background: #252525; color:#fff; border-color: #333; }
+#admin-panel-dashboard.dark-mode-active .admin-item-row { background: #252525; color: #fff; border-color: #333; }
 
 /* ================= BREAKPOINTS RESPONSIVE (POTRET & LANDSCAPE) ================= */
 
 @media (max-width: 768px) {
-    .hamburger-toggle { display: block; } /* Memunculkan garis tiga di HP */
+    .hamburger-toggle { display: block; } /* Tombol Garis 3 Muncul Di HP */
     
-    /* Sembunyikan menu link bawaan sebelum tombol di-klik */
+    /* Navigasi berubah menjadi menu slide gantung di atas */
     .nav-links { 
-        display: none; flex-direction: column; width: 100%; position: absolute; 
-        top: 68px; left: 0; background-color: var(--primary-color); padding: 20px; 
-        gap: 15px; box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
+        display: none; 
+        flex-direction: column; 
+        width: 100%; 
+        position: absolute; 
+        top: 68px; 
+        left: 0; 
+        background-color: var(--primary-color); 
+        padding: 20px; 
+        gap: 15px; 
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2); 
     }
     
-    /* Class tambahan untuk memicu buka menu via Javascript bawaan */
-    .nav-links.open-active { display: flex !important; }
-    .btn-admin-nav { width: 100%; justify-content: center; }
+    /* Aktif via Klik Javascript */
+    .nav-links.open-active { 
+        display: flex !important; 
+    }
+    
+    .btn-admin-nav { 
+        width: 100%; 
+        justify-content: center; 
+    }
 
     .hero-section { height: 50vh; }
-    .stats-footer-container { flex-direction: column; align-items: center; gap: 12px; }
-    .stat-footer-card { width: 100%; max-width: none; }
     
-    .filter-action-bar { flex-direction: column; align-items: stretch; text-align: center; }
-    .rekap-buttons-group { justify-content: center; }
+    /* Statistik bertumpuk vertikal ke bawah di layar kecil */
+    .stats-footer-container { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 12px; 
+    }
+    .stat-footer-card { 
+        width: 100%; 
+        max-width: none; 
+    }
+    
+    .filter-action-bar { 
+        flex-direction: column; 
+        align-items: stretch; 
+        text-align: center; 
+    }
+    .rekap-buttons-group { 
+        justify-content: center; 
+    }
     
     .admin-header { flex-direction: column; gap: 10px; text-align: center; }
     .admin-card { grid-column: span 1 !important; }
